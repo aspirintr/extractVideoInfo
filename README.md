@@ -17,5 +17,9 @@ In a nut shell:
 * Info is taken from FFmpeg at the end of decoding of each frame
 * Fetched info is recorded into SQlite database tables
 * There is also a QT project which can read related infor form the database and overlays it on the video.
+
+## Authors
+* **Kasim Tasdemir** - initial work (kasimtasdemir at gmail)
+
 ## Licence
 I need to first understand the licences and then I will decide on the one most suitable.
