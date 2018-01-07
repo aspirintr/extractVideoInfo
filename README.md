@@ -5,6 +5,9 @@ It currently supports Mpeg1,2, h264 and HEVC (H265) codecs. Extracted info is li
 
 This is an open source project. We need people to contribute.
 
+## Features
+Soon...
+
 ## Prerequisites and Installation
 Follow this [file](https://docs.google.com/document/d/1JhjbeEjnyoMA81fCONBkKB67RoKaeoZ4VYfdGhpFM44/edit?usp=sharing) I will translate later. If you need, send a message.
 
@@ -17,6 +20,12 @@ In a nut shell:
 * Info is taken from FFmpeg at the end of decoding of each frame
 * Fetched info is recorded into SQlite database tables
 * There is also a QT project which can read related infor form the database and overlays it on the video.
+
+## To do
+- [ ] Database structure should be flexable, auto shaped. Its structure should change according to the info extracted.
+- [ ] Only the requested properties should be fetched.
+- [ ] vcal library, which is for reading from SQlite db, should also be flexable.
+- [ ] 
 
 ## Authors
 * **Kasim Tasdemir** - initial work (kasimtasdemir at gmail)
