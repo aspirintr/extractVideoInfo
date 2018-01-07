@@ -25,7 +25,7 @@ In a nut shell:
 - [ ] Database structure should be flexable, auto shaped. Its structure should change according to the info extracted.
 - [ ] Only the requested properties should be fetched.
 - [ ] vcal library, which is for reading from SQlite db, should also be flexable.
-- [ ] 
+- [ ] ...
 
 ## Authors
 * **Kasim Tasdemir** - initial work (kasimtasdemir at gmail)
