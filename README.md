@@ -29,6 +29,10 @@ In a nut shell:
 
 ## Authors
 * **Kasim Tasdemir** - initial work (kasimtasdemir at gmail)
+* Serdar Tasdemir - GUI
 
 ## Licence
 I need to first understand the licences and then I will decide on the one most suitable.
+
+## Acknowledgments
+*The project was supported by [TUBITAK](https://www.tubitak.gov.tr/en)
