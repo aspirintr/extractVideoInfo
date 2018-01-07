@@ -21,11 +21,22 @@
  * THE SOFTWARE.
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+
 #include <libavutil/motion_vector.h>
 #include <libavformat/avformat.h>
 #include <sqlite3.h>
 #include <unistd.h>
 #include "extract_mvs.h"
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #define DATABASE_FILE "dbdeneme.db"
 #define SQL_DDL_FILE "DDL.txt"
@@ -159,7 +170,7 @@ int insert_mb_db(int FrameID, int MBno, int MBx, int MBy, int MBw, int MBh,  int
 	return 0;
 }
 
-int insert_vid_db(int codec_id, char *codec_name_short, char *codec_name_long, int gop_size, int aspect_ratio_num, int aspect_ratio_den){
+int insert_vid_db(int codec_id, const char *codec_name_short, const char *codec_name_long, int gop_size, int aspect_ratio_num, int aspect_ratio_den){
     int step;
 	sqlite3_bind_int(stmt_vid_insert,1,codec_id);
     sqlite3_bind_text(stmt_vid_insert,2,codec_name_short,-1,0);
@@ -182,7 +193,8 @@ static int decode_packet(int *got_frame, int cached)
     if (pkt.stream_index == video_stream_idx) {
         int ret = avcodec_decode_video2(video_dec_ctx, frame, got_frame, &pkt);
         if (ret < 0) {
-            fprintf(stderr, "Error decoding video frame (%s)\n", av_err2str(ret));
+            //fprintf(stderr, "Error decoding video frame (%s)\n", av_err2str(ret)); //doesnt work in c++
+        	fprintf(stderr, "Error decoding video frame \n");
             return ret;
         }
 
@@ -211,7 +223,7 @@ static int decode_packet(int *got_frame, int cached)
             //Get video side data
             if (is_video_info_saved_to_db==0){
 				sdVideoInfo = av_frame_get_side_data(frame, KSM_AV_VIDEO_INFO);
-				KSM_AVVideoInfo *vid=NULL;
+				const KSM_AVVideoInfo *vid=NULL;
 				if (sdVideoInfo) {
 					vid = (const KSM_AVVideoInfo *)sdVideoInfo->data;
 
@@ -228,7 +240,7 @@ static int decode_packet(int *got_frame, int cached)
 
             //Get frame side data
             sdFrameInfo = av_frame_get_side_data(frame, KSM_AV_FRAME_INFO);
-            KSM_AVFrameInfo *fri=NULL;
+            const KSM_AVFrameInfo *fri=NULL;
             if (sdFrameInfo) {
                 fri = (const KSM_AVFrameInfo *)sdFrameInfo->data;
                 printf("%d, %d, %d, %d\n", fri->coded_picture_number, fri->pict_type, fri->width, fri->height, fri->min_block_width );
@@ -410,9 +422,11 @@ int initialize_db(void)
     char* tmp_sql = read_content(SQL_DDL_FILE);
 
 	/* Execute SQL statement */
-	rc = sqlite3_exec(db, tmp_sql, callback, (void*)data, &zErrMsg);
+	//rc = sqlite3_exec(db, tmp_sql, callback, (void*)data, &zErrMsg);
+    rc = sqlite3_exec(db, tmp_sql, callback, (void*)data, NULL);
 	if( rc != SQLITE_OK ){
-	   fprintf(stderr, "SQL error: %s\n", zErrMsg);
+	   //fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		fprintf(stderr, "SQL error: \n");
 	   sqlite3_free(zErrMsg);
 
 	}else{
@@ -420,9 +434,11 @@ int initialize_db(void)
 	}
 	free(tmp_sql);
 	sprintf(sql, "INSERT INTO DBinfo (version) VALUES (%d)",VCAL_DATABASE_VERSION);
-	rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+	//rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+	rc = sqlite3_exec(db, sql, callback, (void*)data, NULL);
 	if( rc != SQLITE_OK ){
-	   fprintf(stderr, "SQL error: %s\n", zErrMsg);
+	   //fprintf(stderr, "SQL error: %s\n", zErrMsg);
+		fprintf(stderr, "SQL error: \n");
 	   sqlite3_free(zErrMsg);
 
 	}else{

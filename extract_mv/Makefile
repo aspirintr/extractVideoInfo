@@ -9,7 +9,7 @@ FFMPEG_LIBS=    libavdevice                        \
 
 SQLITE_LIBS=	sqlite3				\
 
-CFLAGS += -Wall -g
+CFLAGS += -Wall -g -x c++
 CFLAGS := $(shell pkg-config --cflags $(FFMPEG_LIBS) $(SQLITE_LIBS)) $(CFLAGS)
 LDLIBS := $(shell pkg-config --libs $(FFMPEG_LIBS) $(SQLITE_LIBS)) $(LDLIBS)
 
@@ -27,7 +27,7 @@ resampling_audio:  LDLIBS += -lm
 .phony: all clean-test clean
 
 ffmpegMake: 
-	$(MAKE) -C /home/kkk/git/ffmpeg
+	$(MAKE) -C /home/kasim/Desktop/git/FFmpeg
 
 all: ffmpegMake $(OBJS) $(EXAMPLES)
 
