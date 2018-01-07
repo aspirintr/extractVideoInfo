@@ -5,3 +5,5 @@ It currently supports Mpeg1,2, h264 and HEVC (H265) codecs. Extracted info is li
 
 This is an open source project. We need people to contribute.
 
+##Prerequisites and Installation
+Follow this [file](https://docs.google.com/document/d/1JhjbeEjnyoMA81fCONBkKB67RoKaeoZ4VYfdGhpFM44/edit?usp=sharing)
